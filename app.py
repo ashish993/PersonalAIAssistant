@@ -31,22 +31,6 @@ if "selected_model" not in st.session_state:
 
 models = "llama3-70b-8192"
 # Layout for model selection and max_tokens slider
-col1, col2 = st.columns(2)
-
-with col1:
-    model_option = st.selectbox(
-        "Choose a model:",
-        options=list(models.keys()),
-        format_func=lambda x: models[x]["name"],
-        index=4  # Default to mixtral
-    )
-
-# Detect model change and clear chat history if model has changed
-if st.session_state.selected_model != model_option:
-    st.session_state.messages = []
-    st.session_state.selected_model = model_option
-
-max_tokens_range = models[model_option]["tokens"]
 
 
 
