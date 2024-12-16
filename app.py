@@ -17,7 +17,9 @@ def icon(emoji: str):
 
 st.subheader("My Personal Assistant", divider="rainbow", anchor=False)
 
-client = Groq(api_key=st.secrets["GROQ_API_KEY"])
+client = Groq(
+    api_key=Groq(api_key=st.secrets["GROQ_API_KEY"])
+)
 
 # Initialize chat history and selected model
 if "messages" not in st.session_state:
@@ -91,11 +93,14 @@ def handle_uploaded_image(uploaded_image):
     # Analyze the image in the uploaded image
     image_bytes = uploaded_image.read()
     contents = analyze_image(image_bytes)
-    st.session_state.messages.append({"role": "assistant", "content": f"{contents}"})
+    st.session_state.image_description = contents
 
     # Display the response immediately
     with st.chat_message("assistant", avatar="🤖"):
         st.markdown(contents)
+
+    # Save the uploaded image in session state
+    st.session_state.uploaded_image = uploaded_image
 
 
 if upload_button and uploaded_image:
@@ -106,6 +111,10 @@ if prompt := st.chat_input("Enter your question here..."):
 
     with st.chat_message("user", avatar='👨‍💻'):
         st.markdown(prompt)
+
+    # Check if there is an uploaded image description in session state
+    if "image_description" in st.session_state:
+        st.session_state.messages.append({"role": "assistant", "content": st.session_state.image_description})
 
     # Fetch response from Groq API for the prompt
     try:
