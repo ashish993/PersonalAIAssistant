@@ -14,7 +14,7 @@ def icon(emoji: str):
     )
 
 
-st.subheader("Groq Chat Streamlit App", divider="rainbow", anchor=False)
+st.subheader("My Personal Assistant", divider="rainbow", anchor=False)
 
 client = Groq(
     api_key=st.secrets["GROQ_API_KEY"],
@@ -54,17 +54,7 @@ if st.session_state.selected_model != model_option:
 
 max_tokens_range = models[model_option]["tokens"]
 
-with col2:
-    # Adjust max_tokens slider dynamically based on the selected model
-    max_tokens = st.slider(
-        "Max Tokens:",
-        min_value=512,  # Minimum value to allow some flexibility
-        max_value=max_tokens_range,
-        # Default value or max allowed if less
-        value=min(32768, max_tokens_range),
-        step=512,
-        help=f"Adjust the maximum number of tokens (words) for the model's response. Max for selected model: {max_tokens_range}"
-    )
+
 
 # Display chat messages from history on app rerun
 for message in st.session_state.messages:
