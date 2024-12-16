@@ -57,7 +57,7 @@ if prompt := st.chat_input("Enter your prompt here..."):
     # Fetch response from Groq API
     try:
         chat_completion = client.chat.completions.create(
-            model=model_option,
+            model=models,
             messages=[
                 {
                     "role": m["role"],
