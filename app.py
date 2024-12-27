@@ -29,7 +29,7 @@ if "selected_model" not in st.session_state:
 
 # Define model details
 
-models = "llama-3.3-70b-versatile"
+models = "llama3-70b-8192"
 
 # Sidebar for image upload
 with st.sidebar:
